@@ -7,7 +7,7 @@ extern IMAGE maincharacter2;
 
 // 人物移动的全局变量
 int NumIndex = 0;
-int NumOnto = 2; // 0-下；1-左；2-右；3-上
+int NumOnto = 3; // 0-下；1-左；2-右；3-上
 int mainChrx = WIDTH / 2, mainChry = HEIGHT / 2;
 
 // 此函数用于角色移动函数中mainChrKeyDown

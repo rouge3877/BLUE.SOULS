@@ -13,7 +13,8 @@ IMAGE maincharacter1;
 IMAGE maincharacter2;
 
 IMAGE home_wall;
-IMAGE boat;
+IMAGE boat1;
+IMAGE boat2;
 
 // 初始化加载图片
 void Initimage(void)
@@ -24,11 +25,9 @@ void Initimage(void)
 	loadimage(&maincharacter1, _T("maincharacter1.bmp"));
 	loadimage(&maincharacter2, _T("maincharacter2.bmp"));
 	loadimage(&home_wall, _T("home_wall.png"));
-	loadimage(&boat, _T("boat1.png"));
+	loadimage(&boat1, _T("boat1.bmp"));
+	loadimage(&boat2, _T("boat2.bmp"));
 }
-
-
-
 
 
 // 下面的函数实现welcome界面，具备按空格键进入下一个页面的功能
@@ -323,64 +322,265 @@ int Game_Interface_4_Boat(void)
 {
 	// putimage(0, 0, &bkimage_Welcome);
 	setbkcolor(BLACK);
+
+	//船身
 	for (int i = 16; i < 24; i++)
 	{
 		for (int j = 6; j < UNIHEIGHT; j++)
 		{
 			// 船头
-
 			if (j == 6 && i < 20)
 			{
-				fallUni(i - 14, 15, i + 2, j, &boat);
+				fallUni(i - 14, 15, i + 2, j, &boat1);
 			}
 			else if (j == 7 && i < 23)
 			{
-				fallUni(i - 7, 0, i + 1, j, &boat);
+				fallUni(i - 7, 0, i + 1, j, &boat1);
 			}
 			else if (j == 8)
 			{
-				fallUni(i - 8, 1, i, j, &boat);
+				fallUni(i - 8, 1, i, j, &boat1);
 			}
 			else if (j == 9)
 			{
-				fallUni(i - 8, 2, i, j, &boat);
+				fallUni(i - 8, 2, i, j, &boat1);
 			}
 
 			// 甲板
-			else if (j > 9 && j < 18)
+			else if ((j > 9 && j < 18)&&(j!=16))
 			{
 				if (i == 16)
 				{
-					fallUni(8, 3, i, j, &boat);
+					fallUni(8, 3, i, j, &boat1);
 				}
 				else if (i == 23)
 				{
-					fallUni(15, 3, i, j, &boat);
+					fallUni(15, 3, i, j, &boat1);
 				}
 				else
 				{
 					if ((i * j) % 3 == 0 && i % j == 3)
 					{
-						fallUni(2, 1, i, j, &boat);
+						fallUni(2, 1, i, j, &boat1);
 					}
 					else if ((i * j) % 3 == 0 && i % j == 1)
 					{
-						fallUni(2, 0, i, j, &boat);
+						fallUni(2, 0, i, j, &boat1);
 					}
 					else if ((i * j) % 3 == 2 && i % j == 5)
 					{
-						fallUni(1, 0, i, j, &boat);
+						fallUni(0, 0, i, j, &boat1);
 					}
 					else
-						fallUni(0, 0, i, j, &boat);
+						fallUni(0, 0, i, j, &boat1);
 				}
 			}
+			else if (j == 16) {
+				if (i == 16)
+				{
+					fallUni(8, 6, i, j, &boat1);
+				}
+				else if (i == 23)
+				{
+					fallUni(15, 6, i, j, &boat1);
+				}
+				else if (i == 17)
+				{
+					fallUni(9, 6, i, j, &boat1);
+				}
+				else if (i == 22)
+				{
+					fallUni(14, 6, i, j, &boat1);
+				}
+				else {
+					fallUni(0, 0, i, j, &boat1);
+				}
+			}
+			//台阶
 			else if (j == 18)
 			{
-				fallUni(9, 4, i, j, &boat);
+				if (i == 16) {
+					fallUni(8, 4, i, j, &boat1);
+				}
+				else if (i == 23) {
+					fallUni(15, 4, i, j, &boat1);
+				}
+				else {
+					fallUni(9, 4, i, j, &boat1);
+				}
+				
+			}
+			else if (j == 19) {
+				if (i == 16) {
+					fallUni(8, 5, i, j, &boat1);
+				}
+				else if (i == 23) {
+					fallUni(15, 5, i, j, &boat1);
+				}
+				else {
+					fallUni(0, 0, i, j, &boat1);
+					putBitimage(9, 5, i, j, &boat1, &boat2);
+				}
+
+			}
+			
+			//后甲板
+			else if (j == 20) {
+				if (i == 16)
+				{
+					fallUni(8, 3, i, j, &boat1);
+				}
+				else if (i == 23)
+				{
+					fallUni(15, 3, i, j, &boat1);
+				}
+				else
+				{
+					if ((i * j) % 3 == 0 && i % j == 3)
+					{
+						fallUni(2, 0, i, j, &boat1);
+					}
+					else if ((i * j) % 3 == 0 && i % j == 1)
+					{
+						fallUni(0, 0, i, j, &boat1);
+					}
+					else if ((i * j) % 3 == 2 && i % j == 5)
+					{
+						fallUni(1, 1, i, j, &boat1);
+					}
+					else
+						fallUni(0, 0, i, j, &boat1);
+				}
+			
+			}
+
+			//入口
+			else if (j == 21) {
+				if (i == 16) {
+					fallUni(8, 5, i, j, &boat1);
+				}
+				else if (i == 23) {
+					fallUni(15, 5, i, j, &boat1);
+				}
+				else if (i == 18) {
+					fallUni(0, 0, i, j, &boat1);
+					putBitimage(13, 14, i, j, &boat1, &boat2);
+				}
+				else if (i == 21) {
+					fallUni(0, 0, i, j, &boat1);
+					putBitimage(15, 14, i, j, &boat1, &boat2);
+				}
+				else if (i < 21 && i>18) {
+					fallUni(14, 14, i, j, &boat1);
+				}else{
+					fallUni(0, 0, i, j, &boat1);
+				}
+			}
+			else if (j == 22) {
+				fallUni(0, 0, i, j, &boat1);
+				if (i == 16) {
+					fallUni(8, 5, i, j, &boat1);
+				}
+				else if (i == 23) {
+					fallUni(15, 5, i, j, &boat1);
+				}
+				else if (i == 18) {
+					fallUni(0, 0, i, j, &boat1);
+					putBitimage(13, 15, i, j, &boat1, &boat2);
+				}
+				else if (i == 21) {
+					fallUni(0, 0, i, j, &boat1);
+					putBitimage(15, 15, i, j, &boat1, &boat2);
+				}
+				else if (i < 21 && i>18) {
+					putBitimage(14, 15, i, j, &boat1, &boat2);
+				}
+				else {
+					fallUni(0, 0, i, j, &boat1);
+				}
+
+			}
+
+			//后甲板
+			else if (j > 22 && j < UNIHEIGHT && j != 23) {
+				if (i == 16)
+				{
+					fallUni(8, 3, i, j, &boat1);
+				}
+				else if (i == 23)
+				{
+					fallUni(15, 3, i, j, &boat1);
+				}
+				else
+				{
+					if ((i * j) % 3 == 0 && i % j == 3)
+					{
+						fallUni(2, 0, i, j, &boat1);
+					}
+					else if ((i * j) % 3 == 0 && i % j == 1)
+					{
+						fallUni(0, 0, i, j, &boat1);
+					}
+					else if ((i * j) % 3 == 2 && i % j == 5)
+					{
+						fallUni(0, 0, i, j, &boat1);
+					}
+					else {
+						fallUni(0, 0, i, j, &boat1);
+					}
+						
+				}
+
+				}
+			else if (j == 23) {
+				if (i == 16)
+				{
+					fallUni(8, 6, i, j, &boat1);
+				}
+				else if (i == 23)
+				{
+					fallUni(15, 6, i, j, &boat1);
+				}
+				else if (i == 17)
+				{
+					fallUni(9, 6, i, j, &boat1);
+				}
+				else if (i == 22)
+				{
+					fallUni(14, 6, i, j, &boat1);
+				}
+				else {
+					fallUni(0, 0, i, j, &boat1);
+				}
+			}
+
+		}
+	}
+
+	//点缀
+	putBitimage(15, 10, 20, 12, &boat1, &boat2);
+	putBitimage(15, 9, 20, 11, &boat1, &boat2);
+
+	putBitimage(14, 12, 19, 13, &boat1, &boat2);
+	putBitimage(14, 11, 19, 12, &boat1, &boat2);
+
+
+
+	for (int i = 16; i < 24; i++)
+	{
+		for (int j = 6; j < UNIHEIGHT; j++) 
+		{
+			if ((i == 17 || i == 22) && (j > 9 && j < 16))  {
+				if (j % 4 == 0 && i ==17) putBitimage(6, 14, i, j, &boat1, &boat2);
+				if (j % 4 == 3 && i ==22) putBitimage(5, 14, i, j, &boat1, &boat2);
 			}
 		}
 	}
+
+				
+
+			
+
 	return 0;
 }
 
@@ -392,8 +592,8 @@ int main()
 	initgraph(WIDTH, HEIGHT);
 	cleardevice();
 
-	 Game_Interface_1_Welcome();
-	 Game_Interface_2_Manu();
+	 //Game_Interface_1_Welcome();
+	 //Game_Interface_2_Manu();
 
 
 	setbkcolor(BLACK);
