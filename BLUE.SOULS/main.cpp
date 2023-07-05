@@ -1,35 +1,7 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
-#include <graphics.h>
-#include <cstdio>
-#include <conio.h>
-#include <time.h>
-#include <Windows.h>
-#include <map>
+#include "FadeInandOut.h"
+#include "CommunicationBar.h"
 
-#define WIDTH 1280
-#define HEIGHT 800
-#define FPS 24
-#define GRIDSIZE 32
-#define UNIWIDTH WIDTH / GRIDSIZE
-#define UNIHEIGHT HEIGHT / GRIDSIZE
-// 40*25
-#pragma comment(lib, "winmm.lib")
-
-using namespace std;
-
-// 定义一个结构体变量，用来存储RGB的值
-typedef struct
-{
-	int rgb1;
-	int rgb2;
-	int rgb3;
-
-} RGBS;
-
-// 格子的全局变量
-const int gridSize = GRIDSIZE; // 每个格子的大小
-const int cols = UNIWIDTH;	   // 格子地图的列数
-const int rows = UNIHEIGHT;	   // 格子地图的行数
 
 // 全局变量——IMAGE以及MUSIC
 // 以及使像素画图片 -> https://imgonline.tools/zh/pixelate
@@ -42,6 +14,8 @@ IMAGE maincharacter2;
 
 IMAGE home_wall;
 IMAGE boat;
+
+
 // 人物移动的全局变量
 int NumIndex = 0;
 int NumOnto = 2; // 0-下；1-左；2-右；3-上
@@ -59,221 +33,7 @@ void Initimage(void)
 	loadimage(&boat, _T("boat1.png"));
 }
 
-// 下面的函数实现居中打印;RGBS是一个结构体，用来存储RGB的值;RECT是一个结构体，用来存储矩形的左上角和右下角坐标;LOGFONT是一个结构体，用来存储字体的信息
-void beginprint_center(const char* string, const LOGFONT* zfont, RECT* rbox, const RGBS* rgbs)
-{
 
-	settextcolor(RGB(rgbs->rgb1, rgbs->rgb2, rgbs->rgb3));
-	settextstyle(zfont);
-	setbkmode(TRANSPARENT);
-	drawtext(string, rbox, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-	setbkmode(OPAQUE);
-}
-
-// 下面的函数实现左上角打印;RGBS是一个结构体，用来存储RGB的值;RECT是一个结构体，用来存储矩形的左上角和右下角坐标;LOGFONT是一个结构体，用来存储字体的信息
-void beginprint_topleft(const char* string, const LOGFONT* zfont, RECT* rbox, const RGBS* rgbs)
-{
-
-	settextcolor(RGB(rgbs->rgb1, rgbs->rgb2, rgbs->rgb3));
-	settextstyle(zfont);
-	setbkmode(TRANSPARENT);
-	drawtext(string, rbox, DT_LEFT | DT_TOP | DT_VCENTER | DT_SINGLELINE);
-	setbkmode(OPAQUE);
-}
-
-// 下面的函数实现渐入的效果，其中LOGFONT是一个结构体，用来存储字体的信息，x和y是输出的位置（左上角），times是分割次数，sleeptime是间隔时间
-void lunixy_fade_in(const char* string, const LOGFONT* zfont, int x, int y, const RGBS* rgbs, int times, int sleeptime)
-{
-	setbkmode(TRANSPARENT);
-	settextstyle(zfont);
-	COLORREF bk_color = getbkcolor();
-	int bk_color_arr[3] = { GetRValue(bk_color), GetGValue(bk_color), GetBValue(bk_color) };
-	int text_color_arr[3] = { rgbs->rgb1, rgbs->rgb2, rgbs->rgb3 };
-	double r_incr = static_cast<double>(text_color_arr[0] - bk_color_arr[0]) / times;
-	double g_incr = static_cast<double>(text_color_arr[1] - bk_color_arr[1]) / times;
-	double b_incr = static_cast<double>(text_color_arr[2] - bk_color_arr[2]) / times;
-	BeginBatchDraw();
-	for (int i = 0; i <= times; i++)
-	{
-		settextcolor(RGB(static_cast<int>(bk_color_arr[0] + r_incr * i), static_cast<int>(bk_color_arr[1] + g_incr * i), static_cast<int>(bk_color_arr[2] + b_incr * i)));
-		outtextxy(x, y, string);
-		FlushBatchDraw();
-		Sleep(sleeptime);
-	}
-	EndBatchDraw();
-}
-
-// 下面的函数实现渐出的效果，其中LOGFONT是一个结构体，用来存储字体的信息，x和y是输出的位置（左上角），times是分割次数，sleeptime是间隔时间
-void lunixy_fade_out(const char* string, const LOGFONT* zfont, int x, int y, const RGBS* rgbs, int times, int sleeptime)
-{
-	setbkmode(TRANSPARENT);
-	settextstyle(zfont);
-	COLORREF bk_color = getbkcolor();
-	int bk_color_arr[3] = { GetRValue(bk_color), GetGValue(bk_color), GetBValue(bk_color) };
-	int text_color_arr[3] = { rgbs->rgb1, rgbs->rgb2, rgbs->rgb3 };
-	double r_incr = static_cast<double>(text_color_arr[0] - bk_color_arr[0]) / times;
-	double g_incr = static_cast<double>(text_color_arr[1] - bk_color_arr[1]) / times;
-	double b_incr = static_cast<double>(text_color_arr[2] - bk_color_arr[2]) / times;
-	BeginBatchDraw();
-	for (int i = 0; i <= times; i++)
-	{
-		settextcolor(RGB(static_cast<int>(text_color_arr[0] - r_incr * i), static_cast<int>(text_color_arr[1] - g_incr * i), static_cast<int>(text_color_arr[2] - b_incr * i)));
-		outtextxy(x, y, string);
-		FlushBatchDraw();
-		Sleep(sleeptime);
-	}
-	EndBatchDraw();
-}
-
-// 下面的函数旨在实现图片的渐暗效果，其中pImg是一个IMAGE类的对象，times是分割次数，sleeptime是间隔时间
-void Img2dark(IMAGE Img, int times, int sleeptime)
-{
-	DWORD* pBuffer;
-	pBuffer = GetImageBuffer(&Img);
-
-	int width = Img.getwidth();
-	int height = Img.getheight();
-
-	BeginBatchDraw();
-	for (int j = 0; j <= times; j++)
-	{
-		Sleep(sleeptime);
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
-
-				int index = y * width + x;
-				int r = GetRValue(pBuffer[index]);
-				int g = GetGValue(pBuffer[index]);
-				int b = GetBValue(pBuffer[index]);
-				double r_incr = static_cast<double>(r) / times;
-				double g_incr = static_cast<double>(g) / times;
-				double b_incr = static_cast<double>(b) / times;
-				if (pBuffer[index] != 0)
-					pBuffer[index] = RGB(static_cast<int>(r - r_incr * j), static_cast<int>(g - g_incr * j), static_cast<int>(b - b_incr * j));
-			}
-		}
-		putimage(0, 0, &Img);
-		FlushBatchDraw();
-	}
-	EndBatchDraw();
-}
-
-//*下面的函数旨在实现图片的渐显效果，其中pImg是一个IMAGE类的对象，times是分割次数，sleeptime是间隔时间(尚未完成，在处理rgb时有问题, 速度很慢)
-void dark2Img(IMAGE Img, int times, int sleeptime)
-{
-
-	DWORD* pBuffer;
-	pBuffer = GetImageBuffer(&Img);
-
-	map<int, RGBS> Index_rgb;
-
-	int width = Img.getwidth();
-	int height = Img.getheight();
-
-	double r_incr, g_incr, b_incr;
-
-	int x, y, index;
-
-	for (y = 0; y < height; y++)
-	{
-		for (x = 0; x < width; x++)
-		{
-			index = y * width + x;
-
-			Index_rgb[index].rgb1 = GetRValue(pBuffer[index]);
-			Index_rgb[index].rgb2 = GetGValue(pBuffer[index]);
-			Index_rgb[index].rgb3 = GetBValue(pBuffer[index]);
-		}
-	}
-
-	BeginBatchDraw();
-	for (int j = times; j >= 0; j--)
-	{
-
-		Sleep(sleeptime);
-		for (y = 0; y < height; y++)
-		{
-			for (x = 0; x < width; x++)
-			{
-				index = y * width + x;
-
-				r_incr = static_cast<double>(Index_rgb[index].rgb1) / times;
-				g_incr = static_cast<double>(Index_rgb[index].rgb2) / times;
-				b_incr = static_cast<double>(Index_rgb[index].rgb3) / times;
-				pBuffer[index] = RGB(static_cast<int>(r_incr * (times - j)), static_cast<int>(g_incr * (times - j)), static_cast<int>(b_incr * (times - j)));
-			}
-		}
-		putimage(0, 0, &Img);
-		FlushBatchDraw();
-	}
-	EndBatchDraw();
-}
-
-// 绘图函数，补充透明度 AA
-void drawAlpha(IMAGE* image, int x, int y, int width, int height, int pic_x, int pic_y, double AA = 1)
-{
-	// 变量初始化
-	DWORD* dst = GetImageBuffer(); // GetImageBuffer() 函数，用于获取绘图设备的显存指针， EasyX 自带
-	DWORD* draw = GetImageBuffer();
-	DWORD* src = GetImageBuffer(image);	  // 获取 picture 的显存指针
-	int imageWidth = image->getwidth();	  // 获取图片宽度
-	int imageHeight = image->getheight(); // 获取图片宽度
-	int dstX = 0;						  // 在 绘图区域 显存里像素的角标
-	int srcX = 0;						  // 在 image 显存里像素的角标
-
-	// 实现透明贴图 公式： Cp=αp*FP+(1-αp)*BP ， 贝叶斯定理来进行点颜色的概率计算
-	for (int iy = 0; iy < height; iy++)
-	{
-		for (int ix = 0; ix < width; ix++)
-		{
-			// 防止越界
-			if (ix + pic_x >= 0 && ix + pic_x < imageWidth && iy + pic_y >= 0 && iy + pic_y < imageHeight &&
-				ix + x >= 0 && ix + x < WIDTH && iy + y >= 0 && iy + y < HEIGHT)
-			{
-				// 获取像素角标
-				int srcX = (ix + pic_x) + (iy + pic_y) * imageWidth;
-				dstX = (ix + x) + (iy + y) * WIDTH;
-
-				int sa = ((src[srcX] & 0xff000000) >> 24) * AA; // 0xAArrggbb; AA 是透明度
-				int sr = ((src[srcX] & 0xff0000) >> 16);		// 获取 RGB 里的 R
-				int sg = ((src[srcX] & 0xff00) >> 8);			// G
-				int sb = src[srcX] & 0xff;						// B
-
-				// 设置对应的绘图区域像素信息
-				int dr = ((dst[dstX] & 0xff0000) >> 16);
-				int dg = ((dst[dstX] & 0xff00) >> 8);
-				int db = dst[dstX] & 0xff;
-				draw[dstX] = ((sr * sa / 255 + dr * (255 - sa) / 255) << 16)  // 公式： Cp=αp*FP+(1-αp)*BP  ； αp=sa/255 , FP=sr , BP=dr
-					| ((sg * sa / 255 + dg * (255 - sa) / 255) << 8) // αp=sa/255 , FP=sg , BP=dg
-					| (sb * sa / 255 + db * (255 - sa) / 255);		  // αp=sa/255 , FP=sb , BP=db
-			}
-		}
-	}
-}
-
-// 对话框
-void diabox(IMAGE Imgs, IMAGE chas, char* string)
-{
-	IMAGE* dg = &Imgs;
-	IMAGE* chara = &chas;
-	DWORD* pBuffer;
-	pBuffer = GetImageBuffer(dg);
-	int x = 0, y = 480;
-	int width = 1280, height = 300;
-	int pic_x = 0, pic_y = 0;
-	drawAlpha(dg, x, y, width, height, pic_x, pic_y, 0.9);
-	char str[] = "色如果是";
-	//_stprintf(str,_ ,_T("一二三"));
-	settextcolor(RGB(255, 255, 255));
-	settextstyle(50, 0, _T("黑体"));
-	outtextxy(100, 550, string);
-	Sleep(20);
-
-	// putimage(0, 480, dg);
-	// putimage(50, 530, chara);
-}
 
 // 下面的函数实现welcome界面，具备按空格键进入下一个页面的功能
 void Game_Interface_1_Welcome(void)
@@ -507,7 +267,6 @@ void putBitimage(int IndexInImgx, int IndexInImgy, int IndexInFallx, int IndexIn
 }
 
 // 下面的函数实现绘制home界面
-
 int Game_Interface_3_Fire(void)
 {
 	setbkcolor(BLACK);
@@ -563,6 +322,7 @@ int Game_Interface_3_Fire(void)
 	return 0;
 }
 
+//下面的函数实现绘制boat界面
 int Game_Interface_4_Boat(void)
 {
 	// putimage(0, 0, &bkimage_Welcome);
@@ -629,17 +389,16 @@ int Game_Interface_4_Boat(void)
 }
 
 // 此函数用于角色移动函数中mainChrKeyDown
-void Draw(void)
+void Draw(int(* Game_Interface)(void))
 {
-
-	Game_Interface_4_Boat();
+	Game_Interface();
 
 	putimage(mainChrx, mainChry, 32, 32, &maincharacter2, NumIndex * 32, 32 * NumOnto, SRCAND);	  // 掩码图或操作把人物放入
 	putimage(mainChrx, mainChry, 32, 32, &maincharacter1, NumIndex * 32, 32 * NumOnto, SRCPAINT); // 掩码图以消除边框
 }
 
 // 此函数用于控制主角的移动
-void mainChrKeyDown()
+void mainChrKeyDown(int(*Game_Interface)(void))
 {
 	int c;
 	if (_kbhit())
@@ -674,7 +433,7 @@ void mainChrKeyDown()
 			mainChry += 5;
 			break;
 		}
-		Draw();
+		Draw(Game_Interface);
 		NumIndex = (NumIndex + 1) % 3; // 按循环次数在0-3之间循，以选择贴图
 		EndBatchDraw();
 	}
@@ -694,10 +453,10 @@ int main()
 	// 以下是测试代码
 	cleardevice();
 
-	Draw();
+	Draw(Game_Interface_4_Boat);
 	while (1)
 	{
-		mainChrKeyDown();
+		mainChrKeyDown(Game_Interface_4_Boat);
 	}
 
 	while (1)
