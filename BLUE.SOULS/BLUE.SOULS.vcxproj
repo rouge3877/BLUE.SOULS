@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CommunicationBar.cpp" />
+    <ClCompile Include="ControlMain.cpp" />
     <ClCompile Include="FadeInandOut.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommunicationBar.h" />
+    <ClInclude Include="ControlMain.h" />
     <ClInclude Include="FadeInandOut.h" />
     <ClInclude Include="init.h" />
   </ItemGroup>

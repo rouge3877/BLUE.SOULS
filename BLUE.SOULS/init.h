@@ -1,5 +1,4 @@
 #pragma once
-
 #include <graphics.h>
 #include <cstdio>
 #include <conio.h>

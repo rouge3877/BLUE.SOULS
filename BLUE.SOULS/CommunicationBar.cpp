@@ -1,4 +1,4 @@
-#include "init.h"
+#include "CommunicationBar.h"
 
 
 // 下面的函数实现居中打印;RGBS是一个结构体，用来存储RGB的值;RECT是一个结构体，用来存储矩形的左上角和右下角坐标;LOGFONT是一个结构体，用来存储字体的信息
@@ -26,7 +26,7 @@ void beginprint_topleft(const char* string, const LOGFONT* zfont, RECT* rbox, co
 
 
 // 绘图函数，补充透明度 AA
-void drawAlpha(IMAGE* image, int x, int y, int width, int height, int pic_x, int pic_y, double AA = 1)
+void drawAlpha(IMAGE* image, int x, int y, int width, int height, int pic_x, int pic_y, double AA)
 {
 	// 变量初始化
 	DWORD* dst = GetImageBuffer(); // GetImageBuffer() 函数，用于获取绘图设备的显存指针， EasyX 自带
