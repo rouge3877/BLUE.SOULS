@@ -23,8 +23,6 @@ void beginprint_topleft(const char* string, const LOGFONT* zfont, RECT* rbox, co
 	setbkmode(OPAQUE);
 }
 
-
-
 // »æÍ¼º¯Êý£¬²¹³äÍ¸Ã÷¶È AA
 void drawAlpha(IMAGE* image, int x, int y, int width, int height, int pic_x, int pic_y, double AA)
 {
@@ -87,4 +85,8 @@ void diabox(IMAGE Imgs, IMAGE chas, char* string)
 
 	// putimage(0, 480, dg);
 	// putimage(50, 530, chara);
+}
+
+void AliceCommunication(void) {
+
 }

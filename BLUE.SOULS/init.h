@@ -5,7 +5,8 @@
 #include <time.h>
 #include <Windows.h>
 #include <map>
-
+#include <stdarg.h>
+#include <stdbool.h>
 
 #define WIDTH 1280
 #define HEIGHT 800
@@ -16,6 +17,7 @@
 #define UNIHEIGHT HEIGHT / GRIDSIZE
 // 定义40*25的格子
 #pragma comment(lib, "winmm.lib")
+
 
 using namespace std;
 
@@ -34,5 +36,13 @@ const int gridSize = GRIDSIZE; // 每个格子的大小
 const int cols = UNIWIDTH;	   // 格子地图的列数
 const int rows = UNIHEIGHT;	   // 格子地图的行数
 
+typedef struct
+{
+	int lt_x;
+	int lt_y;
 
+	int rb_x;
+	int rb_y;
+
+} myBoxed;
 

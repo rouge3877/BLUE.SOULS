@@ -15,6 +15,20 @@ IMAGE maincharacter2;
 IMAGE home_wall;
 IMAGE boat1;
 IMAGE boat2;
+IMAGE alice1;
+IMAGE alice2;
+
+IMAGE stn_grs1;
+IMAGE stn_grs2;
+
+IMAGE statue1;
+IMAGE statue2;
+
+IMAGE fl;
+
+IMAGE tree1;
+IMAGE tree2;
+
 
 // 初始化加载图片
 void Initimage(void)
@@ -27,6 +41,15 @@ void Initimage(void)
 	loadimage(&home_wall, _T("home_wall.png"));
 	loadimage(&boat1, _T("boat1.bmp"));
 	loadimage(&boat2, _T("boat2.bmp"));
+	loadimage(&alice1, _T("alicecharacter1.bmp"));
+	loadimage(&alice2, _T("alicecharacter2.bmp"));
+	loadimage(&stn_grs1, _T("stone_grass1.bmp"));
+	loadimage(&stn_grs2, _T("stone_grass2.bmp"));
+	loadimage(&statue1, _T("statue1.bmp"));
+	loadimage(&statue2, _T("statue2.bmp"));
+	loadimage(&fl, _T("fl.bmp"));
+	loadimage(&tree1, _T("tree1.bmp"));
+	loadimage(&tree2, _T("tree2.bmp"));
 }
 
 
@@ -80,18 +103,25 @@ int Game_Interface_2_Manu(void)
 	// dark2Img(bkimage_Manu, 50, 1);
 	putimage(0, 0, &bkimage_Manu);
 
+	LOGFONT titlefont2 = { 27, 0, 0, 0, 100, TRUE, FALSE, FALSE, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SCRIPT, "Script" };
+	RGBS titlergb2 = { 0, 0, 0 };
+	RECT titlebox1 = { 850, 100, 1200, 150 };
+	RECT titlebox2 = { 850, 210, 1200, 260 };
+	RECT titlebox3 = { 850, 320, 1200, 370 };
+	RECT titlebox4 = { 850, 430, 1200, 480 };
+
 	// 绘制四个按钮
 	solidroundrect(850, 100, 1200, 150, 20, 20);
 	floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
+	beginprint_center("Start Game", &titlefont2,&titlebox1,&titlergb2);
 
 	solidroundrect(850, 210, 1200, 260, 20, 20);
 	floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
+	beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
 
 	solidroundrect(850, 320, 1200, 370, 20, 20);
 	floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-
-	solidroundrect(850, 430, 1200, 480, 20, 20);
-	floodfill(1000, 440, RGB(255, 255, 255), FLOODFILLBORDER);
+	beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
 
 	MOUSEMSG mmsg;
 	Sleep(1000);
@@ -111,15 +141,16 @@ int Game_Interface_2_Manu(void)
 				putimage(0, 0, &bkimage_Manu);
 				solidroundrect(870, 107, 1180, 143, 20, 20);
 				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("Start Game", &titlefont2, &titlebox1, &titlergb2);
 
 				solidroundrect(850, 210, 1200, 260, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
 
 				solidroundrect(850, 320, 1200, 370, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
 
-				solidroundrect(850, 430, 1200, 480, 20, 20);
-				floodfill(1000, 440, RGB(255, 255, 255), FLOODFILLBORDER);
 				ret = 1;
 				EndBatchDraw();
 				break;
@@ -130,15 +161,16 @@ int Game_Interface_2_Manu(void)
 				putimage(0, 0, &bkimage_Manu);
 				solidroundrect(850, 100, 1200, 150, 20, 20);
 				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("Start Game", &titlefont2, &titlebox1, &titlergb2);
 
 				solidroundrect(870, 217, 1180, 253, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
 
 				solidroundrect(850, 320, 1200, 370, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
 
-				solidroundrect(850, 430, 1200, 480, 20, 20);
-				floodfill(1000, 440, RGB(255, 255, 255), FLOODFILLBORDER);
 				ret = 2;
 				EndBatchDraw();
 				break;
@@ -149,35 +181,17 @@ int Game_Interface_2_Manu(void)
 				putimage(0, 0, &bkimage_Manu);
 				solidroundrect(850, 100, 1200, 150, 20, 20);
 				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("Start Game", &titlefont2, &titlebox1, &titlergb2);
 
 				solidroundrect(850, 210, 1200, 260, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
 
 				solidroundrect(870, 327, 1180, 363, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
 
-				solidroundrect(850, 430, 1200, 480, 20, 20);
-				floodfill(1000, 440, RGB(255, 255, 255), FLOODFILLBORDER);
 				ret = 3;
-				EndBatchDraw();
-				break;
-			}
-			else if (mmsg.x > 850 && mmsg.x < 1200 && mmsg.y > 430 && mmsg.y < 480)
-			{
-				cleardevice();
-				putimage(0, 0, &bkimage_Manu);
-				solidroundrect(850, 100, 1200, 150, 20, 20);
-				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-
-				solidroundrect(850, 210, 1200, 260, 20, 20);
-				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
-
-				solidroundrect(850, 320, 1200, 370, 20, 20);
-				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-
-				solidroundrect(870, 437, 1190, 473, 20, 20);
-				floodfill(1000, 440, RGB(255, 255, 255), FLOODFILLBORDER);
-				ret = 4;
 				EndBatchDraw();
 				break;
 			}
@@ -198,27 +212,23 @@ int Game_Interface_2_Manu(void)
 			{
 				setlinecolor(WHITE);
 				roundrect(840, 310, 1210, 380, 20, 20);
-			}
-			else if (mmsg.x > 850 && mmsg.x < 1200 && mmsg.y > 430 && mmsg.y < 480)
-			{
-				setlinecolor(WHITE);
-				roundrect(840, 420, 1210, 490, 20, 20);
-			}
+			}	
 			else
 			{
 				cleardevice();
 				putimage(0, 0, &bkimage_Manu);
 				solidroundrect(850, 100, 1200, 150, 20, 20);
 				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("Start Game", &titlefont2, &titlebox1, &titlergb2);
 
 				solidroundrect(850, 210, 1200, 260, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
 
 				solidroundrect(850, 320, 1200, 370, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
+				beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
 
-				solidroundrect(850, 430, 1200, 480, 20, 20);
-				floodfill(1000, 440, RGB(255, 255, 255), FLOODFILLBORDER);
 			}
 		}
 
@@ -231,15 +241,16 @@ int Game_Interface_2_Manu(void)
 	putimage(0, 0, &bkimage_Manu);
 	solidroundrect(850, 100, 1200, 150, 20, 20);
 	floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
+	beginprint_center("Start Game", &titlefont2, &titlebox1, &titlergb2);
 
 	solidroundrect(850, 210, 1200, 260, 20, 20);
 	floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
+	beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
 
 	solidroundrect(850, 320, 1200, 370, 20, 20);
 	floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
+	beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
 
-	solidroundrect(850, 430, 1200, 480, 20, 20);
-	floodfill(1000, 440, RGB(255, 255, 255), FLOODFILLBORDER);
 	EndBatchDraw();
 	Sleep(400);
 	Img2dark(bkimage_Manu, 100, 1);
@@ -472,7 +483,8 @@ int Game_Interface_4_Boat(void)
 				}
 				else if (i < 21 && i>18) {
 					fallUni(14, 14, i, j, &boat1);
-				}else{
+				}
+				else {
 					fallUni(0, 0, i, j, &boat1);
 				}
 			}
@@ -528,7 +540,7 @@ int Game_Interface_4_Boat(void)
 					else {
 						fallUni(0, 0, i, j, &boat1);
 					}
-						
+
 				}
 
 				}
@@ -558,31 +570,318 @@ int Game_Interface_4_Boat(void)
 	}
 
 	//点缀
-	putBitimage(15, 10, 20, 12, &boat1, &boat2);
-	putBitimage(15, 9, 20, 11, &boat1, &boat2);
-
-	putBitimage(14, 12, 19, 13, &boat1, &boat2);
-	putBitimage(14, 11, 19, 12, &boat1, &boat2);
+	if (1) {
 
 
+		putBitimage(14, 12, 19, 8, &boat1, &boat2);
+		putBitimage(14, 11, 19, 7, &boat1, &boat2);
 
-	for (int i = 16; i < 24; i++)
-	{
-		for (int j = 6; j < UNIHEIGHT; j++) 
-		{
-			if ((i == 17 || i == 22) && (j > 9 && j < 16))  {
-				if (j % 4 == 0 && i ==17) putBitimage(6, 14, i, j, &boat1, &boat2);
-				if (j % 4 == 3 && i ==22) putBitimage(5, 14, i, j, &boat1, &boat2);
-			}
+
+		putBitimage(2, 2, 17, 20, &boat1, &boat2);
+
+		putBitimage(7, 0, 22, 20, &boat1, &boat2);
+		putBitimage(7, 1, 22, 21, &boat1, &boat2);
+
+
+		putBitimage(15, 11, 22, 9, &boat1, &boat2);
+		putBitimage(15, 11, 21, 9, &boat1, &boat2);
+		putBitimage(15, 11, 19, 9, &boat1, &boat2);
+		putBitimage(15, 11, 18, 9, &boat1, &boat2);
+		putBitimage(15, 11, 17, 9, &boat1, &boat2);
+
+		putBitimage(15, 11, 21, 8, &boat1, &boat2);
+		putBitimage(15, 11, 20, 8, &boat1, &boat2);
+		putBitimage(15, 11, 19, 8, &boat1, &boat2);
+		putBitimage(15, 11, 18, 8, &boat1, &boat2);
+
+
+		putBitimage(15, 11, 21, 23, &boat1, &boat2);
+		putBitimage(15, 11, 20, 23, &boat1, &boat2);
+		putBitimage(15, 11, 19, 23, &boat1, &boat2);
+		putBitimage(15, 11, 18, 23, &boat1, &boat2);
+
+		putBitimage(15, 10, 20, 9, &boat1, &boat2);
+		putBitimage(15, 9, 20, 8, &boat1, &boat2);
+
+		putBitimage(6, 14, 17, 11, &boat1, &boat2);
+		putBitimage(5, 14, 22, 11, &boat1, &boat2);
+
+
+
+		//putBitimage(4, 8, 18, 11, &boat1, &boat2);
+		//putBitimage(5, 8, 19, 11, &boat1, &boat2);
+		//putBitimage(6, 8, 20, 11, &boat1, &boat2);
+		//putBitimage(7, 8, 21, 11, &boat1, &boat2);
+
+
+		putBitimage(4, 0, 19, 13, &boat1, &boat2);
+		putBitimage(4, 1, 19, 14, &boat1, &boat2);
+		putBitimage(5, 1, 20, 13, &boat1, &boat2);
+		putBitimage(6, 1, 20, 14, &boat1, &boat2);
+
+		putBitimage(1, 2, 17, 10, &alice1, &alice2);
+
+
+	}
+
+		
+	return 0;
+}
+
+
+myBoxed boatBoxed_boat =
+{
+	525,298,715,708
+};
+
+myBoxed inyBoxed1_boat = {
+   535,323,555,358
+};
+
+myBoxed inyBoxed2_boat = {
+	685,328,710,353
+};
+
+myBoxed inyBoxed3_boat = {
+   590,388,655,453
+};
+
+myBoxed inyBoxed4_boat = {
+	525,483,560,518
+};
+
+myBoxed inyBoxed5_boat = {
+	680,488,715,518
+};
+
+myBoxed inyBoxed6_boat = {
+	680,628,715,663
+};
+
+myBoxed judgeBox_boat = {
+	595,673,655,683
+};
+
+myBoxed alice_boat = {
+	565,308,580,323
+};
+
+
+
+void Draw_grs(int i, int j) {
+	fallUni(7, 3, i, j, &fl);
+}
+
+typedef pair<int, int> XOY;
+
+int Game_Iterface_5_Grass(void) {
+	setbkcolor(BLACK);
+	for (int i = 0; i < 40; i++) {
+		for (int j = 0; j < 25; j++) {
+			fallUni(9, 1, i, j, &stn_grs1);
 		}
 	}
 
-				
+	XOY Stngrs_sc[UNIWIDTH * UNIHEIGHT];
+	Stngrs_sc[0] = make_pair(20, 12);
+	Stngrs_sc[1] = make_pair(20, 13);
+	Stngrs_sc[2] = make_pair(19, 12);
+	Stngrs_sc[3] = make_pair(19, 13);
 
-			
+	//装饰
+	Stngrs_sc[4] = make_pair(12, 3);
+	Stngrs_sc[5] = make_pair(8, 6);
+	Stngrs_sc[6] = make_pair(3, 3);
+	Stngrs_sc[7] = make_pair(25, 9);
+	Stngrs_sc[8] = make_pair(3, 20);
+	Stngrs_sc[9] = make_pair(27, 23);
+	Stngrs_sc[10] = make_pair(29, 24);
+	Stngrs_sc[11] = make_pair(35, 3);
+	Stngrs_sc[12] = make_pair(36, 19);
+
+	Stngrs_sc[13] = make_pair(12, 10);
+	Stngrs_sc[14] = make_pair(23, 13);
+	Stngrs_sc[15] = make_pair(12, 16);
+	Stngrs_sc[16] = make_pair(11, 13);
+	Stngrs_sc[17] = make_pair(21, 8);
+	Stngrs_sc[18] = make_pair(28, 10);
+	Stngrs_sc[19] = make_pair(11, 13);
+	Stngrs_sc[20] = make_pair(22, 10);
+	Stngrs_sc[21] = make_pair(27, 7);
+	Stngrs_sc[22] = make_pair(20, 18);
+	Stngrs_sc[23] = make_pair(24, 9);
+	Stngrs_sc[24] = make_pair(14, 18);
+	Stngrs_sc[25] = make_pair(28, 14);
+	Stngrs_sc[26] = make_pair(21, 10);
+	Stngrs_sc[27] = make_pair(18, 12);
+	Stngrs_sc[28] = make_pair(17, 14);
+	Stngrs_sc[29] = make_pair(27, 8);
+
+	//井 etc
+	Stngrs_sc[30] = make_pair(2, 19);
+	Stngrs_sc[31] = make_pair(2, 20);
+	Stngrs_sc[32] = make_pair(2, 21);
+	Stngrs_sc[33] = make_pair(3, 19);
+	Stngrs_sc[34] = make_pair(3, 20);
+	Stngrs_sc[35] = make_pair(3, 21);
+	Stngrs_sc[36] = make_pair(4, 19);
+	Stngrs_sc[37] = make_pair(4, 20);
+	Stngrs_sc[38] = make_pair(4, 21);
+
+	Stngrs_sc[39] = make_pair(1, 18);
+	Stngrs_sc[40] = make_pair(1, 19);
+	Stngrs_sc[41] = make_pair(1, 20);
+	Stngrs_sc[42] = make_pair(1, 21);
+	Stngrs_sc[43] = make_pair(1, 22);
+	Stngrs_sc[44] = make_pair(2, 22);
+	Stngrs_sc[45] = make_pair(2, 18);
+	Stngrs_sc[46] = make_pair(3, 22);
+	Stngrs_sc[47] = make_pair(3, 18);
+	Stngrs_sc[48] = make_pair(4, 22);
+	Stngrs_sc[49] = make_pair(4, 18);
+	Stngrs_sc[50] = make_pair(5, 22);
+	Stngrs_sc[51] = make_pair(5, 21);
+	Stngrs_sc[52] = make_pair(5, 20);
+	Stngrs_sc[53] = make_pair(5, 19);
+	Stngrs_sc[54] = make_pair(4, 17);
+	Stngrs_sc[55] = make_pair(3, 23);
+	Stngrs_sc[56] = make_pair(0, 19);
+	Stngrs_sc[57] = make_pair(6, 15);
+	Stngrs_sc[58] = make_pair(5, 18);
+	Stngrs_sc[59] = make_pair(2, 16);
+
+	//岩浆
+	Stngrs_sc[60] = make_pair(38, 8);
+	Stngrs_sc[61] = make_pair(39, 8);
+	Stngrs_sc[62] = make_pair(39, 9);
+	Stngrs_sc[63] = make_pair(37, 12);
+	Stngrs_sc[64] = make_pair(37, 13);
+	Stngrs_sc[65] = make_pair(38, 13);
+	Stngrs_sc[66] = make_pair(39, 13);
+	Stngrs_sc[67] = make_pair(39, 7);
+	Stngrs_sc[68] = make_pair(39, 14);
+	Stngrs_sc[69] = make_pair(38, 14);
+	Stngrs_sc[70] = make_pair(36, 16);
+	Stngrs_sc[71] = make_pair(36, 17);
+	Stngrs_sc[72] = make_pair(37, 17);
+
+	//花
+	Stngrs_sc[73] = make_pair(16, 0);
+	Stngrs_sc[74] = make_pair(17, 0);
+	Stngrs_sc[75] = make_pair(18, 0);
+	Stngrs_sc[76] = make_pair(19, 0);
+	Stngrs_sc[77] = make_pair(20, 0);
+	Stngrs_sc[78] = make_pair(21, 0);
+
+	Stngrs_sc[78] = make_pair(16, 1);
+	Stngrs_sc[79] = make_pair(17, 2);
+	Stngrs_sc[80] = make_pair(18, 1);
+	Stngrs_sc[81] = make_pair(19, 2);
+	Stngrs_sc[82] = make_pair(20, 3);
+	Stngrs_sc[83] = make_pair(21, 1);
+	Stngrs_sc[84] = make_pair(15, 1);
+
+	//路
+	Stngrs_sc[85] = make_pair(19, 16);
+	Stngrs_sc[86] = make_pair(19, 17);
+	Stngrs_sc[87] = make_pair(19, 18);
+	Stngrs_sc[88] = make_pair(19, 19);
+	Stngrs_sc[89] = make_pair(19, 20);
+	Stngrs_sc[90] = make_pair(19, 21);
+	Stngrs_sc[91] = make_pair(19, 22);
+	Stngrs_sc[92] = make_pair(19, 23);
+	Stngrs_sc[93] = make_pair(19, 24);
+	Stngrs_sc[94] = make_pair(20, 16);
+	Stngrs_sc[95] = make_pair(20, 17);
+	Stngrs_sc[96] = make_pair(20, 18);
+	Stngrs_sc[97] = make_pair(20, 19);
+	Stngrs_sc[98] = make_pair(20, 20);
+	Stngrs_sc[99] = make_pair(20, 21);
+	Stngrs_sc[100] = make_pair(20, 22);
+	Stngrs_sc[101] = make_pair(20, 23);
+	Stngrs_sc[102] = make_pair(20, 24);
+
+
+	Stngrs_sc[103] = make_pair(20, 15);
+	Stngrs_sc[104] = make_pair(20, 16);
+	Stngrs_sc[105] = make_pair(21, 15);
+	Stngrs_sc[106] = make_pair(21, 16);
+
+	XOY Stat_rc[UNIWIDTH * UNIHEIGHT];
+	Stat_rc[0] = make_pair(11, 5);
+	Stat_rc[1] = make_pair(11, 6);
+	Stat_rc[2] = make_pair(12, 5);
+	Stat_rc[3] = make_pair(12, 6);
+
+
+	XOY Stngrs_rc[UNIWIDTH * UNIHEIGHT];
+	Stngrs_rc[0] = make_pair(12, 3);
+	Stngrs_rc[1] = make_pair(8, 6);
+	Stngrs_rc[2] = make_pair(2, 2);
+	Stngrs_rc[3] = make_pair(12, 6);
+	Stngrs_rc[4] = make_pair(11, 5);
+	Stngrs_rc[5] = make_pair(11, 6);
+	Stngrs_rc[6] = make_pair(12, 5);
+	Stngrs_rc[7] = make_pair(12, 6);
+
+
+
+
+
+
+	for (int i = 0; i < 4; i++) {
+		putBitimage(Stat_rc[i].first, Stat_rc[i].second, Stngrs_sc[i].first, Stngrs_sc[i].second, &statue1, &statue2);
+	}
+
+	for (int i = 4; i < 13; i++) {
+		putBitimage(14, 6, Stngrs_sc[i].first, Stngrs_sc[i].second, &stn_grs1, &stn_grs2);
+	}
+
+	for (int i = 13; i < 21; i++) {
+		putBitimage(11, 10, Stngrs_sc[i].first, Stngrs_sc[i].second, &stn_grs1, &stn_grs2);
+	}
+
+	for (int i = 21; i < 30; i++) {
+		putBitimage(14, 4, Stngrs_sc[i].first, Stngrs_sc[i].second, &stn_grs1, &stn_grs2);
+	}
+
+	for (int i = 30; i < 39; i++) {
+		putBitimage((Stngrs_sc[i].first - 2), (Stngrs_sc[i].second - 16), Stngrs_sc[i].first, Stngrs_sc[i].second, &stn_grs1, &stn_grs2);
+	}
+
+	for (int i = 39; i < 60; i++) {
+		putBitimage(6, 5, Stngrs_sc[i].first, Stngrs_sc[i].second, &stn_grs1, &stn_grs2);
+	}
+
+	for (int i = 60; i < 73; i++) {
+		fallUni(9, 8, Stngrs_sc[i].first, Stngrs_sc[i].second, &fl);
+	}
+
+	for (int i = 73; i < 85; i++) {
+		putBitimage(14, 6, Stngrs_sc[i].first, Stngrs_sc[i].second, &stn_grs1, &stn_grs2);
+	}
+
+	for (int i = 85; i < 103; i++) {
+		putBitimage(14, 6, Stngrs_sc[i].first, Stngrs_sc[i].second, &stn_grs1, &stn_grs2);
+	}
+
+	for (int i = 103; i < 107; i++) {
+		putBitimage((Stngrs_sc[i].first - 14), (Stngrs_sc[i].second - 13), Stngrs_sc[i].first - 1, Stngrs_sc[i].second - 1, &stn_grs1, &stn_grs2);
+	}
+
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < (10 - i) && (j * i) % 5 != 2; j++) {
+			Draw_grs(i, j);
+		}
+	}
+
 
 	return 0;
 }
+
+myBoxed fall_grass = {
+	0,0,WIDTH,HEIGHT
+};
 
 int main()
 {
@@ -592,28 +891,49 @@ int main()
 	initgraph(WIDTH, HEIGHT);
 	cleardevice();
 
-	 //Game_Interface_1_Welcome();
-	 //Game_Interface_2_Manu();
+
+	//欢迎界面
+	Game_Interface_1_Welcome();
+	int Game_Interface_2_Manu_get = Game_Interface_2_Manu();
+	if (Game_Interface_2_Manu_get == 3) {
+		closegraph();
+		return 0;
+	}
+	else if (Game_Interface_2_Manu_get == 2) {
+		//about界面
+	}
+	else if (Game_Interface_2_Manu_get == 1) {
+		goto beginGame;
+	}
+
+	beginGame:
+	setbkcolor(BLACK);
+	cleardevice();
+
+
+	//船界面
+	Draw(Game_Interface_4_Boat);
+	extern int mainChrx;
+	extern int mainChry;
+	while (1)
+	{
+		if (judgeBox(mainChrx, mainChry, &judgeBox_boat, NULL)) break;
+		if (judgeBox(mainChrx, mainChry, &alice_boat, NULL)) {
+			AliceCommunication();
+		}
+		mainChrKeyDown(Game_Interface_4_Boat,judgeBox, &boatBoxed_boat, &inyBoxed1_boat, &inyBoxed2_boat, &inyBoxed3_boat, &inyBoxed4_boat, &inyBoxed5_boat, &inyBoxed6_boat, NULL);
+	}
+
 
 
 	setbkcolor(BLACK);
 	cleardevice();
 
-	Draw(Game_Interface_4_Boat);
-	while (1)
-	{
-		mainChrKeyDown(Game_Interface_4_Boat);
-	}
 
+	Draw(Game_Iterface_5_Grass);
 	while (1)
 	{
-		//	BeginBatchDraw();
-		//	IMAGE dia;
-		//	IMAGE alice;
-		//	loadimage(&dia, _T("dia.png"), 1280, 300, true);
-		//	loadimage(&alice, _T("alice.png"), 120, 120, true);
-		//	diabox(dia, alice);
-		//	EndBatchDraw();
+		mainChrKeyDown(Game_Iterface_5_Grass, judgeBox, &fall_grass,NULL);
 	}
 
 	_getch();

@@ -12,3 +12,6 @@ void drawAlpha(IMAGE* image, int x, int y, int width, int height, int pic_x, int
 
 // ¶Ô»°¿ò
 void diabox(IMAGE Imgs, IMAGE chas, char* string);
+
+//alice
+void AliceCommunication(void);
