@@ -11,7 +11,4 @@ void beginprint_topleft(const char* string, const LOGFONT* zfont, RECT* rbox, co
 void drawAlpha(IMAGE* image, int x, int y, int width, int height, int pic_x, int pic_y, double AA = 1);
 
 // ¶Ô»°¿ò
-void diabox(IMAGE Imgs, IMAGE chas, char* string);
-
-//alice
-void AliceCommunication(void);
+void diabox(IMAGE Imgs, IMAGE chas1, IMAGE chas2,const char* string);

@@ -30,6 +30,15 @@ IMAGE fl;
 IMAGE tree1;
 IMAGE tree2;
 
+IMAGE wolf1;
+IMAGE wolf2;
+IMAGE wolfbar1;
+IMAGE wolfbar2;
+
+IMAGE alicebar1;
+IMAGE alicebar2;
+IMAGE dia;
+
 
 // 初始化加载图片
 void Initimage(void)
@@ -51,6 +60,13 @@ void Initimage(void)
 	loadimage(&fl, _T("fl.bmp"));
 	loadimage(&tree1, _T("tree1.bmp"));
 	loadimage(&tree2, _T("tree2.bmp"));
+	loadimage(&alicebar1, _T("alicebar1.bmp"));
+	loadimage(&alicebar2, _T("alicebar2.bmp"));
+	loadimage(&dia, _T("dia.png"));
+	loadimage(&wolf1, _T("wolf1.bmp"));
+	loadimage(&wolf2, _T("wolf2.bmp"));
+	loadimage(&wolfbar1, _T("wolfbar1.bmp"));
+	loadimage(&wolfbar2, _T("wolfbar2.bmp"));
 }
 
 
@@ -117,9 +133,6 @@ int Game_Interface_2_Manu(void)
 	RECT titlebox4 = { 850, 430, 1200, 480 };
 
 	// 绘制四个按钮
-	solidroundrect(850, 100, 1200, 150, 20, 20);
-	floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-	beginprint_center("Quit Game", &titlefont2,&titlebox1,&titlergb2);
 
 	solidroundrect(850, 210, 1200, 260, 20, 20);
 	floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
@@ -127,7 +140,7 @@ int Game_Interface_2_Manu(void)
 
 	solidroundrect(850, 320, 1200, 370, 20, 20);
 	floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-	beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
+	beginprint_center("Quit Game", &titlefont2, &titlebox3, &titlergb2);
 
 	MOUSEMSG mmsg;
 	Sleep(1000);
@@ -141,33 +154,11 @@ int Game_Interface_2_Manu(void)
 
 		if (mmsg.uMsg == WM_LBUTTONDOWN)
 		{
-			if (mmsg.x > 850 && mmsg.x < 1200 && mmsg.y > 100 && mmsg.y < 150)
+			 if (mmsg.x > 850 && mmsg.x < 1200 && mmsg.y > 210 && mmsg.y < 260)
 			{
 				cleardevice();
 				putimage(0, 0, &bkimage_Manu);
-				solidroundrect(870, 107, 1180, 143, 20, 20);
-				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Quit Game", &titlefont2, &titlebox1, &titlergb2);
 
-				solidroundrect(850, 210, 1200, 260, 20, 20);
-				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Start Game", &titlefont2, &titlebox2, &titlergb2);
-
-				solidroundrect(850, 320, 1200, 370, 20, 20);
-				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
-
-				ret = 1;
-				EndBatchDraw();
-				break;
-			}
-			else if (mmsg.x > 850 && mmsg.x < 1200 && mmsg.y > 210 && mmsg.y < 260)
-			{
-				cleardevice();
-				putimage(0, 0, &bkimage_Manu);
-				solidroundrect(850, 100, 1200, 150, 20, 20);
-				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Quit Game", &titlefont2, &titlebox1, &titlergb2);
 
 				solidroundrect(870, 217, 1180, 253, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
@@ -175,9 +166,9 @@ int Game_Interface_2_Manu(void)
 
 				solidroundrect(850, 320, 1200, 370, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
+				beginprint_center("Quit Game", &titlefont2, &titlebox3, &titlergb2);
 
-				ret = 2;
+				ret = 1;
 				EndBatchDraw();
 				break;
 			}
@@ -185,9 +176,7 @@ int Game_Interface_2_Manu(void)
 			{
 				cleardevice();
 				putimage(0, 0, &bkimage_Manu);
-				solidroundrect(850, 100, 1200, 150, 20, 20);
-				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Quit Game", &titlefont2, &titlebox1, &titlergb2);
+
 
 				solidroundrect(850, 210, 1200, 260, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
@@ -195,21 +184,16 @@ int Game_Interface_2_Manu(void)
 
 				solidroundrect(870, 327, 1180, 363, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
+				beginprint_center("Quit Game", &titlefont2, &titlebox3, &titlergb2);
 
-				ret = 3;
+				ret = 0;
 				EndBatchDraw();
 				break;
 			}
 		}
 		if (mmsg.uMsg == WM_MOUSEMOVE)
 		{
-			if (mmsg.x > 850 && mmsg.x < 1200 && mmsg.y > 100 && mmsg.y < 150)
-			{
-				setlinecolor(WHITE);
-				roundrect(840, 90, 1210, 160, 20, 20);
-			}
-			else if (mmsg.x > 850 && mmsg.x < 1200 && mmsg.y > 210 && mmsg.y < 260)
+			if (mmsg.x > 850 && mmsg.x < 1200 && mmsg.y > 210 && mmsg.y < 260)
 			{
 				setlinecolor(WHITE);
 				roundrect(840, 200, 1210, 270, 20, 20);
@@ -223,9 +207,7 @@ int Game_Interface_2_Manu(void)
 			{
 				cleardevice();
 				putimage(0, 0, &bkimage_Manu);
-				solidroundrect(850, 100, 1200, 150, 20, 20);
-				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Quit Game", &titlefont2, &titlebox1, &titlergb2);
+
 
 				solidroundrect(850, 210, 1200, 260, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
@@ -233,7 +215,7 @@ int Game_Interface_2_Manu(void)
 
 				solidroundrect(850, 320, 1200, 370, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
+				beginprint_center("Quit Game", &titlefont2, &titlebox3, &titlergb2);
 
 			}
 		}
@@ -245,9 +227,7 @@ int Game_Interface_2_Manu(void)
 	cleardevice();
 	BeginBatchDraw();
 	putimage(0, 0, &bkimage_Manu);
-	solidroundrect(850, 100, 1200, 150, 20, 20);
-	floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-	beginprint_center("Quit Game", &titlefont2, &titlebox1, &titlergb2);
+
 
 	solidroundrect(850, 210, 1200, 260, 20, 20);
 	floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
@@ -255,7 +235,7 @@ int Game_Interface_2_Manu(void)
 
 	solidroundrect(850, 320, 1200, 370, 20, 20);
 	floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-	beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
+	beginprint_center("Quit Game", &titlefont2, &titlebox3, &titlergb2);
 
 	EndBatchDraw();
 	Sleep(400);
@@ -691,6 +671,8 @@ int Game_Iterface_5_Grass(void) {
 	Stngrs_sc[2] = make_pair(19, 12);
 	Stngrs_sc[3] = make_pair(19, 13);
 
+
+	putBitimage(1, 2, 17, 13, &alice1, &alice2);
 	//装饰
 	Stngrs_sc[4] = make_pair(12, 3);
 	Stngrs_sc[5] = make_pair(8, 6);
@@ -828,6 +810,8 @@ int Game_Iterface_5_Grass(void) {
 	Stngrs_rc[7] = make_pair(12, 6);
 
 
+
+
 	for (int i = 0; i < 4; i++) {
 		putBitimage(Stat_rc[i].first, Stat_rc[i].second, Stngrs_sc[i].first, Stngrs_sc[i].second, &statue1, &statue2);
 	}
@@ -890,13 +874,21 @@ myBoxed hole_grass = {
 	65,598,125,658
 };
 
+myBoxed alice_grass = {
+	515,403,570,433
+};
+
 
 //用于生成第六个场地
 int Game_Iterface_6_Grave(void) {
 	setbkcolor(BLACK);
 	for (int i = 15; i < 25; i++) {
 		for (int j = 7; j < 18; j++) {
-			fallUni(6, 5, i, j, &stn_grs1);
+			if (i * j % 4 == 1) fallUni(6, 5, i, j, &stn_grs1);
+			else if(i * j % 4 == 2) fallUni(4,6, i, j, &stn_grs1);
+			else if (i * j % 4 == 3) fallUni(4, 7, i, j, &stn_grs1);
+			else if (i * j % 4 == 0) fallUni(4, 8, i, j, &stn_grs1);
+			
 		}
 	}
 
@@ -907,10 +899,29 @@ int Game_Iterface_6_Grave(void) {
 	putBitimage(15, 11, 18, 13, &statue1, &statue2);
 	putBitimage(15, 10, 18, 12, &statue1, &statue2);
 
+	putBitimage(2, 2, 18, 13, &wolf1, &wolf2);
+	putBitimage(3, 2, 19, 13, &wolf1, &wolf2);
+
+	putBitimage(5, 2, 15, 7,&stn_grs1, &stn_grs2);
+	putBitimage(5, 3, 15, 8, &stn_grs1, &stn_grs2);
+	putBitimage(5, 2, 15, 16, &stn_grs1, &stn_grs2);
+	putBitimage(5, 3, 15, 17, &stn_grs1, &stn_grs2);
+	putBitimage(5, 2, 24, 7, &stn_grs1, &stn_grs2);
+	putBitimage(5, 3, 24, 8, &stn_grs1, &stn_grs2);
+	putBitimage(5, 2, 24, 16, &stn_grs1, &stn_grs2);
+	putBitimage(5, 3,24 , 17, &stn_grs1, &stn_grs2);
+
+
 	return 0;
 }
 
+myBoxed doorandwolf = {
+	500,353,590,423
+};
 
+myBoxed wolf_grave = {
+	595, 373,630,433
+};
 
 
 int main()
@@ -921,46 +932,46 @@ int main()
 	initgraph(WIDTH, HEIGHT);
 	cleardevice();
 
-/*
-	//欢迎界面
-	Game_Interface_1_Welcome();
-	int Game_Interface_2_Manu_get = Game_Interface_2_Manu();
-	if (Game_Interface_2_Manu_get == 1) {
-		closegraph();
-		return 0;
-	}
-	else if (Game_Interface_2_Manu_get == 3) {
-		//About Game界面
-	}
-	else if (Game_Interface_2_Manu_get == 2) {
-		goto beginGame;
-	}
 
-	beginGame:
-	setbkcolor(BLACK);
-	cleardevice();
+//	//欢迎界面
+//	Game_Interface_1_Welcome();
+//	int Game_Interface_2_Manu_get = Game_Interface_2_Manu();
+//	if (Game_Interface_2_Manu_get == 0) {
+//		closegraph();
+//		return 0;
+//	}
+//
+//	else if (Game_Interface_2_Manu_get == 1) {
+//		goto beginGame;
+//	}
+//
+//	beginGame:
+//	setbkcolor(BLACK);
+//	cleardevice();
+//
+//
+//	//船界面以及对话
+//	Draw(Game_Interface_4_Boat);
+//	while (1)
+//	{
+//		if (judgeBox(mainChrx, mainChry, &judgeBox_boat, NULL)) { 
+//			mainChrx = 625;
+//			mainChry = 768;
+//			NumOnto = 0;
+//			setbkcolor(BLACK);
+//			cleardevice();
+//			Sleep(1000);
+//			break;
+//		}
+//		if (judgeBox(mainChrx, mainChry, &alice_boat, NULL)&& _kbhit() && _getch()=='e') {
+//			goto alicecommunication;
+//		}
+//alicecommunicationed:
+//		mainChrKeyDown(Game_Interface_4_Boat,judgeBox, &boatBoxed_boat, &inyBoxed1_boat, &inyBoxed2_boat, &inyBoxed3_boat, &inyBoxed4_boat, &inyBoxed5_boat, &inyBoxed6_boat, NULL);
+//	}
 
+wolfcommunicationed:
 
-	//船界面
-	Draw(Game_Interface_4_Boat);
-	while (1)
-	{
-		if (judgeBox(mainChrx, mainChry, &judgeBox_boat, NULL)) { 
-			mainChrx = 625;
-			mainChry = 768;
-			NumOnto = 0;
-			setbkcolor(BLACK);
-			cleardevice();
-			Sleep(1000);
-			break;
-		}
-		if (judgeBox(mainChrx, mainChry, &alice_boat, NULL)) {
-			AliceCommunication();
-		}
-		mainChrKeyDown(Game_Interface_4_Boat,judgeBox, &boatBoxed_boat, &inyBoxed1_boat, &inyBoxed2_boat, &inyBoxed3_boat, &inyBoxed4_boat, &inyBoxed5_boat, &inyBoxed6_boat, NULL);
-	}
-
-	*/
 
 	Draw(Game_Iterface_5_Grass);
 	while (1)
@@ -970,22 +981,173 @@ int main()
 			setbkcolor(BLACK);
 			cleardevice();
 			Sleep(1000);
-			break;
+			mainChrx = 630;
+			mainChry = 198;
+			NumOnto = 0;
 			break;
 		}
 
+		if (judgeBox(mainChrx, mainChry, &alice_grass, NULL) && _kbhit() && _getch() == 'e') {
+			goto alicecommunication2;
+		}
+
+alicecommunicationed2:
 		mainChrKeyDown(Game_Iterface_5_Grass, judgeBox, &fall_grass, &statue_grass, NULL);
+
 	}
+
 
 	extern myBoxed firel[100];
 	extern int maze[13][13];
-	drawMaze();
+
+	Draw(Game_Iterface_6_Grave);
+
 	while (1) {
-		BeginBatchDraw();
-		EndBatchDraw();
-		mainChrKeyDown(drawMaze, judgeBox, &fall_grass, &statue_grass, NULL);
+
+		if (judgeBox(mainChrx, mainChry, &wolf_grave, NULL) && _kbhit() && _getch() == 'e') {
+			goto wolfcommunication;
+		}
+
+
+		mainChrKeyDown(Game_Iterface_6_Grave, judgeBox, &fall_grass, &doorandwolf, NULL);
 	}
 	_getch();
 	closegraph();
 	return 0;
+
+
+alicecommunication:
+	cleardevice();
+
+	NumOnto = 1;
+	Draw(Game_Interface_4_Boat);
+	diabox(dia, alicebar1, alicebar2, "Hello");
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Interface_4_Boat);
+		diabox(dia, alicebar1, alicebar2, "Good moning");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Interface_4_Boat);
+		diabox(dia, alicebar1, alicebar2, "Good afternoon");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Interface_4_Boat);
+		diabox(dia, alicebar1, alicebar2, "Good moning");
+	}	
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Interface_4_Boat);
+		diabox(dia, alicebar1, alicebar2, "Good moning");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Interface_4_Boat);
+		diabox(dia, alicebar1, alicebar2, "Good afternoon");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Interface_4_Boat);
+		diabox(dia, alicebar1, alicebar2, "Good moning");
+	}
+
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Interface_4_Boat);
+		//goto alicecommunicationed;
+	}
+
+alicecommunication2:
+	cleardevice();
+
+	NumOnto = 1;
+	Draw(Game_Iterface_5_Grass);
+	diabox(dia, alicebar1, alicebar2, "Hello");
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_5_Grass);
+		diabox(dia, alicebar1, alicebar2, "Good moning");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_5_Grass);
+		diabox(dia, alicebar1, alicebar2, "Good afternoon");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_5_Grass);
+		diabox(dia, alicebar1, alicebar2, "Good moning");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_5_Grass);
+		diabox(dia, alicebar1, alicebar2, "Good moning");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_5_Grass);
+		diabox(dia, alicebar1, alicebar2, "Good afternoon");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_5_Grass);
+		diabox(dia, alicebar1, alicebar2, "Good moning");
+	}
+
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_5_Grass);
+		goto alicecommunicationed2;
+	}
+
+wolfcommunication:
+	cleardevice();
+
+	NumOnto = 1;
+	Draw(Game_Iterface_6_Grave);
+	diabox(dia, wolfbar1, wolfbar2, "Hello");
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_6_Grave);
+		diabox(dia, wolfbar1, wolfbar2, "Good moning");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_6_Grave);
+		diabox(dia, wolfbar1, wolfbar2, "Good afternoon");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_6_Grave);
+		diabox(dia, wolfbar1, wolfbar2, "Good moning");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_6_Grave);
+		diabox(dia, wolfbar1, wolfbar2, "Good moning");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_6_Grave);
+		diabox(dia, wolfbar1, wolfbar2, "Good afternoon");
+	}
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_6_Grave);
+		diabox(dia, wolfbar1, wolfbar2, "Good moning");
+	}
+
+	if (_getch() == 'e' || _getch() == 'E') {
+		cleardevice();
+		Draw(Game_Iterface_6_Grave);
+		mainChrx = 140;
+		mainChry = 583;
+		NumOnto = 3;
+		cleardevice();
+		Sleep(1000);
+		goto wolfcommunicationed;
+	}
+
 }

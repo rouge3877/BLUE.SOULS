@@ -26,6 +26,7 @@ void beginprint_topleft(const char* string, const LOGFONT* zfont, RECT* rbox, co
 // 绘图函数,补充透明度 AA
 void drawAlpha(IMAGE* image, int x, int y, int width, int height, int pic_x, int pic_y, double AA)
 {
+
 	// 变量初始化
 	DWORD* dst = GetImageBuffer(); // GetImageBuffer() 函数,用于获取绘图设备的显存指针, EasyX 自带
 	DWORD* draw = GetImageBuffer();
@@ -66,24 +67,24 @@ void drawAlpha(IMAGE* image, int x, int y, int width, int height, int pic_x, int
 }
 
 // 对话框
-void diabox(IMAGE Imgs, IMAGE chas1, IMAGE chas2, char* string)
+void diabox(IMAGE Imgs, IMAGE chas1, IMAGE chas2,const char* string)
 {
 	IMAGE* dg = &Imgs;
 	IMAGE* chara1 = &chas1;
 	IMAGE* chara2 = &chas2;
 	DWORD* pBuffer;
 	pBuffer = GetImageBuffer(dg);
-	int x = 0, y = 480;
+	int x = 0, y = 620;
 	int width = 1280, height = 300;
 	int pic_x = 0, pic_y = 0;
-	drawAlpha(dg, x, y, width, height, pic_x, pic_y, 0.9);
-	putimage(50, 530, chara1);
-	putimage(50, 530, chara2);
-	char str[] = "色如果是";
-	//_stprintf(str,_ ,_T("一二三"));
-	settextcolor(RGB(255, 255, 255));
-	settextstyle(50, 0, _T("黑体"));
-	outtextxy(100, 550, string);
-	Sleep(20);
+	drawAlpha(dg, x, y, width, height, pic_x, pic_y, 0.7);
+	putimage(50, 650, chara2, SRCAND);
+	putimage(50, 650, chara1, SRCPAINT);
+
+	LOGFONT titlefontbar = { 40, 0, 0, 0, 100, TRUE, FALSE, FALSE, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SCRIPT, "Times New Roman" };
+	RGBS titlergbbar = { 255, 255, 255 };
+	RECT titleboxbar = {200, 650, WIDTH -100, HEIGHT-100 };
+	beginprint_topleft(string, &titlefontbar, &titleboxbar, &titlergbbar);
+
 }
 

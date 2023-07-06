@@ -31,7 +31,6 @@ int fireliboxndex = 0;
 
 
 int drawMaze(void) {
-
     for (int x = 13; x < 27; x++) {
         for (int y = 6; y < 20; y++) {
            
