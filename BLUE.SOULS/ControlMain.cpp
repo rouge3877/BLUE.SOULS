@@ -19,7 +19,7 @@ void Draw(int(*Game_Interface)(void))
 	putimage(mainChrx, mainChry, 32, 32, &maincharacter1, NumIndex * 32, 32 * NumOnto, SRCPAINT); // 掩码图以消除边框
 }
 
-//此函数用于判断碰撞体积，其中x,y为人物的坐标，box1为必须在其中的坐标，box2及以后为不可在其中的坐标
+//此函数用于判断碰撞体积,其中x,y为人物的坐标,box1为必须在其中的坐标,box2及以后为不可在其中的坐标
 bool judgeBox(int x, int y, myBoxed* validBox, ...)
 {
     // 检查坐标是否在有效区域内

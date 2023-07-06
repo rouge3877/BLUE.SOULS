@@ -3,6 +3,7 @@
 #include "CommunicationBar.h"
 #include "ControlMain.h"
 
+
 // 全局变量——IMAGE以及MUSIC
 // 以及使像素画图片 -> https://imgonline.tools/zh/pixelate
 IMAGE bkimage_Welcome;
@@ -53,7 +54,12 @@ void Initimage(void)
 }
 
 
-// 下面的函数实现welcome界面，具备按空格键进入下一个页面的功能
+extern int mainChrx;
+extern int mainChry;
+extern int NumOnto;
+
+
+// 下面的函数实现welcome界面,具备按空格键进入下一个页面的功能
 void Game_Interface_1_Welcome(void)
 {
 
@@ -63,7 +69,7 @@ void Game_Interface_1_Welcome(void)
 
 	RGBS titlergb1 = { 0, 0, 0 };
 	RECT titlebox1 = { 0, 0, WIDTH * 1.5, 120 };
-	// https://docs.easyx.cn/zh-cn/logfont  <----(about struct LOGFONT)
+	// https://docs.easyx.cn/zh-cn/logfont  <----(Start Game struct LOGFONT)
 	LOGFONT titlefont1 = { 80, 0, 0, 0, 500, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_SWISS, "Times New Roman" };
 
 	beginprint_center("BLUE. SOULS", &titlefont1, &titlebox1, &titlergb1);
@@ -79,7 +85,7 @@ void Game_Interface_1_Welcome(void)
 	{
 		if (GetAsyncKeyState(VK_SPACE))
 			break;
-		//"GetAsyncKeyState(VK_SPACE)" : about key value -> https://blog.csdn.net/mystonelxj/article/details/88184829
+		//"GetAsyncKeyState(VK_SPACE)" : Start Game key value -> https://blog.csdn.net/mystonelxj/article/details/88184829
 		lunixy_fade_in("Press SPACE to continue......", &titlefont2, 0, 0, &titlergb2, 100, 15);
 		if (GetAsyncKeyState(VK_SPACE))
 			break;
@@ -113,15 +119,15 @@ int Game_Interface_2_Manu(void)
 	// 绘制四个按钮
 	solidroundrect(850, 100, 1200, 150, 20, 20);
 	floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-	beginprint_center("Start Game", &titlefont2,&titlebox1,&titlergb2);
+	beginprint_center("Quit Game", &titlefont2,&titlebox1,&titlergb2);
 
 	solidroundrect(850, 210, 1200, 260, 20, 20);
 	floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
-	beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
+	beginprint_center("Start Game", &titlefont2, &titlebox2, &titlergb2);
 
 	solidroundrect(850, 320, 1200, 370, 20, 20);
 	floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-	beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
+	beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
 
 	MOUSEMSG mmsg;
 	Sleep(1000);
@@ -141,15 +147,15 @@ int Game_Interface_2_Manu(void)
 				putimage(0, 0, &bkimage_Manu);
 				solidroundrect(870, 107, 1180, 143, 20, 20);
 				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Start Game", &titlefont2, &titlebox1, &titlergb2);
+				beginprint_center("Quit Game", &titlefont2, &titlebox1, &titlergb2);
 
 				solidroundrect(850, 210, 1200, 260, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
+				beginprint_center("Start Game", &titlefont2, &titlebox2, &titlergb2);
 
 				solidroundrect(850, 320, 1200, 370, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
+				beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
 
 				ret = 1;
 				EndBatchDraw();
@@ -161,15 +167,15 @@ int Game_Interface_2_Manu(void)
 				putimage(0, 0, &bkimage_Manu);
 				solidroundrect(850, 100, 1200, 150, 20, 20);
 				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Start Game", &titlefont2, &titlebox1, &titlergb2);
+				beginprint_center("Quit Game", &titlefont2, &titlebox1, &titlergb2);
 
 				solidroundrect(870, 217, 1180, 253, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
+				beginprint_center("Start Game", &titlefont2, &titlebox2, &titlergb2);
 
 				solidroundrect(850, 320, 1200, 370, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
+				beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
 
 				ret = 2;
 				EndBatchDraw();
@@ -181,15 +187,15 @@ int Game_Interface_2_Manu(void)
 				putimage(0, 0, &bkimage_Manu);
 				solidroundrect(850, 100, 1200, 150, 20, 20);
 				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Start Game", &titlefont2, &titlebox1, &titlergb2);
+				beginprint_center("Quit Game", &titlefont2, &titlebox1, &titlergb2);
 
 				solidroundrect(850, 210, 1200, 260, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
+				beginprint_center("Start Game", &titlefont2, &titlebox2, &titlergb2);
 
 				solidroundrect(870, 327, 1180, 363, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
+				beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
 
 				ret = 3;
 				EndBatchDraw();
@@ -219,15 +225,15 @@ int Game_Interface_2_Manu(void)
 				putimage(0, 0, &bkimage_Manu);
 				solidroundrect(850, 100, 1200, 150, 20, 20);
 				floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Start Game", &titlefont2, &titlebox1, &titlergb2);
+				beginprint_center("Quit Game", &titlefont2, &titlebox1, &titlergb2);
 
 				solidroundrect(850, 210, 1200, 260, 20, 20);
 				floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
+				beginprint_center("Start Game", &titlefont2, &titlebox2, &titlergb2);
 
 				solidroundrect(850, 320, 1200, 370, 20, 20);
 				floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-				beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
+				beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
 
 			}
 		}
@@ -241,15 +247,15 @@ int Game_Interface_2_Manu(void)
 	putimage(0, 0, &bkimage_Manu);
 	solidroundrect(850, 100, 1200, 150, 20, 20);
 	floodfill(1000, 100, RGB(255, 255, 255), FLOODFILLBORDER);
-	beginprint_center("Start Game", &titlefont2, &titlebox1, &titlergb2);
+	beginprint_center("Quit Game", &titlefont2, &titlebox1, &titlergb2);
 
 	solidroundrect(850, 210, 1200, 260, 20, 20);
 	floodfill(1000, 250, RGB(255, 255, 255), FLOODFILLBORDER);
-	beginprint_center("About", &titlefont2, &titlebox2, &titlergb2);
+	beginprint_center("Start Game", &titlefont2, &titlebox2, &titlergb2);
 
 	solidroundrect(850, 320, 1200, 370, 20, 20);
 	floodfill(1000, 330, RGB(255, 255, 255), FLOODFILLBORDER);
-	beginprint_center("Quit", &titlefont2, &titlebox3, &titlergb2);
+	beginprint_center("About", &titlefont2, &titlebox3, &titlergb2);
 
 	EndBatchDraw();
 	Sleep(400);
@@ -257,7 +263,7 @@ int Game_Interface_2_Manu(void)
 	return ret;
 }
 
-// 下面的函数实现填入方格，输入坐标（在源图像中的以及要填入的目标位置）
+// 下面的函数实现填入方格,输入坐标（在源图像中的以及要填入的目标位置）
 void fallUni(int IndexInImgx, int IndexInImgy, int IndexInFallx, int IndexInFally, IMAGE* pimg)
 {
 
@@ -572,7 +578,6 @@ int Game_Interface_4_Boat(void)
 	//点缀
 	if (1) {
 
-
 		putBitimage(14, 12, 19, 8, &boat1, &boat2);
 		putBitimage(14, 11, 19, 7, &boat1, &boat2);
 
@@ -606,8 +611,6 @@ int Game_Interface_4_Boat(void)
 		putBitimage(6, 14, 17, 11, &boat1, &boat2);
 		putBitimage(5, 14, 22, 11, &boat1, &boat2);
 
-
-
 		//putBitimage(4, 8, 18, 11, &boat1, &boat2);
 		//putBitimage(5, 8, 19, 11, &boat1, &boat2);
 		//putBitimage(6, 8, 20, 11, &boat1, &boat2);
@@ -621,9 +624,7 @@ int Game_Interface_4_Boat(void)
 
 		putBitimage(1, 2, 17, 10, &alice1, &alice2);
 
-
 	}
-
 		
 	return 0;
 }
@@ -674,7 +675,9 @@ void Draw_grs(int i, int j) {
 
 typedef pair<int, int> XOY;
 
+//用于生成第五个场地
 int Game_Iterface_5_Grass(void) {
+
 	setbkcolor(BLACK);
 	for (int i = 0; i < 40; i++) {
 		for (int j = 0; j < 25; j++) {
@@ -825,10 +828,6 @@ int Game_Iterface_5_Grass(void) {
 	Stngrs_rc[7] = make_pair(12, 6);
 
 
-
-
-
-
 	for (int i = 0; i < 4; i++) {
 		putBitimage(Stat_rc[i].first, Stat_rc[i].second, Stngrs_sc[i].first, Stngrs_sc[i].second, &statue1, &statue2);
 	}
@@ -883,6 +882,37 @@ myBoxed fall_grass = {
 	0,0,WIDTH,HEIGHT
 };
 
+myBoxed statue_grass = {
+	580,358,660,483
+};
+
+myBoxed hole_grass = {
+	65,598,125,658
+};
+
+
+//用于生成第六个场地
+int Game_Iterface_6_Grave(void) {
+	setbkcolor(BLACK);
+	for (int i = 15; i < 25; i++) {
+		for (int j = 7; j < 18; j++) {
+			fallUni(6, 5, i, j, &stn_grs1);
+		}
+	}
+
+	putBitimage(13, 10, 16, 12, &statue1, &statue2);
+	putBitimage(14, 10, 17, 12, &statue1, &statue2);
+	putBitimage(13, 11, 16, 13, &statue1, &statue2);
+	putBitimage(14, 11, 17, 13, &statue1, &statue2);
+	putBitimage(15, 11, 18, 13, &statue1, &statue2);
+	putBitimage(15, 10, 18, 12, &statue1, &statue2);
+
+	return 0;
+}
+
+
+
+
 int main()
 {
 	Initimage();
@@ -891,18 +921,18 @@ int main()
 	initgraph(WIDTH, HEIGHT);
 	cleardevice();
 
-
+/*
 	//欢迎界面
 	Game_Interface_1_Welcome();
 	int Game_Interface_2_Manu_get = Game_Interface_2_Manu();
-	if (Game_Interface_2_Manu_get == 3) {
+	if (Game_Interface_2_Manu_get == 1) {
 		closegraph();
 		return 0;
 	}
-	else if (Game_Interface_2_Manu_get == 2) {
-		//about界面
+	else if (Game_Interface_2_Manu_get == 3) {
+		//About Game界面
 	}
-	else if (Game_Interface_2_Manu_get == 1) {
+	else if (Game_Interface_2_Manu_get == 2) {
 		goto beginGame;
 	}
 
@@ -913,29 +943,48 @@ int main()
 
 	//船界面
 	Draw(Game_Interface_4_Boat);
-	extern int mainChrx;
-	extern int mainChry;
 	while (1)
 	{
-		if (judgeBox(mainChrx, mainChry, &judgeBox_boat, NULL)) break;
+		if (judgeBox(mainChrx, mainChry, &judgeBox_boat, NULL)) { 
+			mainChrx = 625;
+			mainChry = 768;
+			NumOnto = 0;
+			setbkcolor(BLACK);
+			cleardevice();
+			Sleep(1000);
+			break;
+		}
 		if (judgeBox(mainChrx, mainChry, &alice_boat, NULL)) {
 			AliceCommunication();
 		}
 		mainChrKeyDown(Game_Interface_4_Boat,judgeBox, &boatBoxed_boat, &inyBoxed1_boat, &inyBoxed2_boat, &inyBoxed3_boat, &inyBoxed4_boat, &inyBoxed5_boat, &inyBoxed6_boat, NULL);
 	}
 
-
-
-	setbkcolor(BLACK);
-	cleardevice();
-
+	*/
 
 	Draw(Game_Iterface_5_Grass);
 	while (1)
 	{
-		mainChrKeyDown(Game_Iterface_5_Grass, judgeBox, &fall_grass,NULL);
+
+		if (judgeBox(mainChrx, mainChry, &hole_grass, NULL)) {
+			setbkcolor(BLACK);
+			cleardevice();
+			Sleep(1000);
+			break;
+			break;
+		}
+
+		mainChrKeyDown(Game_Iterface_5_Grass, judgeBox, &fall_grass, &statue_grass, NULL);
 	}
 
+	extern myBoxed firel[100];
+	extern int maze[13][13];
+	drawMaze();
+	while (1) {
+		BeginBatchDraw();
+		EndBatchDraw();
+		mainChrKeyDown(drawMaze, judgeBox, &fall_grass, &statue_grass, NULL);
+	}
 	_getch();
 	closegraph();
 	return 0;

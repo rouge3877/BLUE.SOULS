@@ -1,7 +1,7 @@
 #include "FadeInandOut.h"
 
 
-// 下面的函数实现渐入的效果，其中LOGFONT是一个结构体，用来存储字体的信息，x和y是输出的位置（左上角），times是分割次数，sleeptime是间隔时间
+// 下面的函数实现渐入的效果,其中LOGFONT是一个结构体,用来存储字体的信息,x和y是输出的位置（左上角）,times是分割次数,sleeptime是间隔时间
 void lunixy_fade_in(const char* string, const LOGFONT* zfont, int x, int y, const RGBS* rgbs, int times, int sleeptime)
 {
 	setbkmode(TRANSPARENT);
@@ -23,7 +23,7 @@ void lunixy_fade_in(const char* string, const LOGFONT* zfont, int x, int y, cons
 	EndBatchDraw();
 }
 
-// 下面的函数实现渐出的效果，其中LOGFONT是一个结构体，用来存储字体的信息，x和y是输出的位置（左上角），times是分割次数，sleeptime是间隔时间
+// 下面的函数实现渐出的效果,其中LOGFONT是一个结构体,用来存储字体的信息,x和y是输出的位置（左上角）,times是分割次数,sleeptime是间隔时间
 void lunixy_fade_out(const char* string, const LOGFONT* zfont, int x, int y, const RGBS* rgbs, int times, int sleeptime)
 {
 	setbkmode(TRANSPARENT);
@@ -45,7 +45,7 @@ void lunixy_fade_out(const char* string, const LOGFONT* zfont, int x, int y, con
 	EndBatchDraw();
 }
 
-// 下面的函数旨在实现图片的渐暗效果，其中pImg是一个IMAGE类的对象，times是分割次数，sleeptime是间隔时间
+// 下面的函数旨在实现图片的渐暗效果,其中pImg是一个IMAGE类的对象,times是分割次数,sleeptime是间隔时间
 void Img2dark(IMAGE Img, int times, int sleeptime)
 {
 	DWORD* pBuffer;
@@ -80,7 +80,7 @@ void Img2dark(IMAGE Img, int times, int sleeptime)
 	EndBatchDraw();
 }
 
-//*下面的函数旨在实现图片的渐显效果，其中pImg是一个IMAGE类的对象，times是分割次数，sleeptime是间隔时间(尚未完成，在处理rgb时有问题, 速度很慢)
+//*下面的函数旨在实现图片的渐显效果,其中pImg是一个IMAGE类的对象,times是分割次数,sleeptime是间隔时间(尚未完成,在处理rgb时有问题, 速度很慢)
 //void dark2Img(IMAGE Img, int times, int sleeptime)
 //{
 //

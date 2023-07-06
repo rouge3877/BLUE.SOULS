@@ -21,7 +21,7 @@
 
 using namespace std;
 
-// 定义一个结构体变量，用来存储RGB的值
+// 定义一个结构体变量,用来存储RGB的值
 typedef struct
 {
 	int rgb1;
@@ -46,3 +46,14 @@ typedef struct
 
 } myBoxed;
 
+void Initimage(void);
+void Game_Interface_1_Welcome(void);
+int Game_Interface_2_Manu(void);
+void fallUni(int IndexInImgx, int IndexInImgy, int IndexInFallx, int IndexInFally, IMAGE* pimg);
+void putBitimage(int IndexInImgx, int IndexInImgy, int IndexInFallx, int IndexInFally, IMAGE* psrc, IMAGE* pmarking);
+int Game_Interface_3_Fire(void);
+int Game_Interface_4_Boat(void);
+void Draw_grs(int i, int j);
+int Game_Iterface_5_Grass(void);
+
+int drawMaze(void);

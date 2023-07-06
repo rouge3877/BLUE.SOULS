@@ -131,6 +131,7 @@
     <ClCompile Include="ControlMain.cpp" />
     <ClCompile Include="FadeInandOut.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Maze.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommunicationBar.h" />
